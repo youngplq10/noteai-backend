@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     @Autowired
@@ -42,8 +44,20 @@ public class UserService {
     }
 
     public String createUser(User user) {
-        userRepository.insert(user);
-        return jwtService.generateToken(user.getUsername());
+        try {
+            Optional<User> existingUsername = userRepository.findByUsername(user.getUsername());
+            Optional<User> existingEmail = userRepository.findByEmail(user.getEmail());
+
+            if (existingEmail.isPresent() || existingUsername.isPresent()) {
+                return "Failed";
+            }
+            else {
+                userRepository.insert(user);
+                return jwtService.generateToken(user.getUsername());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String loginUser(User user) {
