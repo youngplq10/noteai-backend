@@ -32,9 +32,12 @@ public class User {
     @JsonIgnoreProperties({"user", "notes"})
     private List<Tag> tags;
 
+    private String role;
+
     public User() {
         this.id = new ObjectId();
         this.createdAtDate = new Date();
+        this.role = "USER";
     }
 
     public ObjectId getId() { return id; }
@@ -58,4 +61,6 @@ public class User {
 
     public List<Tag> getTags() { return tags; }
     public void setTags(List<Tag> tags) { this.tags = tags; }
+
+    public String getRole() { return role; }
 }
