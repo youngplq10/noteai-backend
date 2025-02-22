@@ -16,8 +16,8 @@ public class TagController {
     private TagService tagService;
 
     @PostMapping("/auth/tag")
-    public ResponseEntity<Boolean> createTag(@RequestPart String username, @RequestPart String name) {
-        return new ResponseEntity<Boolean> (tagService.createTag(username, name), HttpStatus.CREATED);
+    public ResponseEntity<Tag> createTag(@RequestPart String username, @RequestPart String name) {
+        return new ResponseEntity<Tag> (tagService.createTag(username, name), HttpStatus.CREATED);
     }
 
     @GetMapping("/auth/tags/{username}")

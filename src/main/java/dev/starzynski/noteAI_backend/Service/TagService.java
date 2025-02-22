@@ -27,7 +27,7 @@ public class TagService {
         }
     }
 
-    public Boolean createTag(String username, String name) {
+    public Tag createTag(String username, String name) {
         try {
             User user = userRepository.findByUsername(username).orElseThrow();
 
@@ -37,7 +37,7 @@ public class TagService {
 
             tagRepository.insert(tag);
 
-            return true;
+            return tag;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
