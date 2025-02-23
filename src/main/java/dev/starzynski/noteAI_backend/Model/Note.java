@@ -1,11 +1,13 @@
 package dev.starzynski.noteAI_backend.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import dev.starzynski.noteAI_backend.Service.GenerateRandomStringService;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,9 +34,15 @@ public class Note {
 
     private Date createdAtDate;
 
+    private String link;
+
     public Note() {
         this.id = new ObjectId();
         this.createdAtDate = new Date();
+        this.tags = new ArrayList<>();
+
+        GenerateRandomStringService randomStringService = new GenerateRandomStringService();
+        this.link = randomStringService.generateRandom(15);
     }
 
     public ObjectId getId() { return id; }
@@ -55,4 +63,7 @@ public class Note {
     public void setMindMap(MindMap mindMap) { this.mindMap = mindMap; }
 
     public Date getCreatedAtDate() { return createdAtDate; }
+
+    public String getLink() { return link; }
+    public void setLink(String link) { this.link = link; }
 }

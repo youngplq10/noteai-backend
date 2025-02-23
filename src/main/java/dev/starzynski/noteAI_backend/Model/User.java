@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class User {
         this.id = new ObjectId();
         this.createdAtDate = new Date();
         this.role = "USER";
+        this.notes = new ArrayList<>();
     }
 
     public ObjectId getId() { return id; }
