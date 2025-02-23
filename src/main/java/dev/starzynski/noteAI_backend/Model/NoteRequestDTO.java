@@ -1,4 +1,4 @@
-package dev.starzynski.noteAI_backend.Controller;
+package dev.starzynski.noteAI_backend.Model;
 
 import java.util.List;
 

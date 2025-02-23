@@ -1,13 +1,12 @@
 package dev.starzynski.noteAI_backend.Controller;
 
 import dev.starzynski.noteAI_backend.Model.Note;
+import dev.starzynski.noteAI_backend.Model.NoteRequestDTO;
 import dev.starzynski.noteAI_backend.Service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -16,7 +15,17 @@ public class NoteController {
     private NoteService noteService;
 
     @PostMapping("/auth/note")
-    public ResponseEntity<Note> createNote(@RequestBody NoteRequestDTO requestDTO) {
-        return new ResponseEntity<Note> (noteService.createNote(requestDTO.getContent(), requestDTO.getUsername(), requestDTO.getTags()),HttpStatus.CREATED);
+    public ResponseEntity<String> createNote(@RequestBody NoteRequestDTO requestDTO) {
+        return new ResponseEntity<String> (noteService.createNote(requestDTO.getContent(), requestDTO.getUsername(), requestDTO.getTags()),HttpStatus.CREATED);
+    }
+
+    @GetMapping("/auth/note/{link}")
+    public ResponseEntity<Note> getNoteByLink(@PathVariable String link) {
+        return new ResponseEntity<Note> (noteService.getNoteByLink(link), HttpStatus.OK);
+    }
+
+    @PostMapping("/auth/note/summary")
+    public ResponseEntity<Note> setSummary(@RequestPart String summary, @RequestPart String link) {
+        return new ResponseEntity<Note> (noteService.setSummary(summary, link), HttpStatus.OK);
     }
 }

@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NoteRepository extends MongoRepository<Note, ObjectId> {
+    Note findByLink(String link);
 }
