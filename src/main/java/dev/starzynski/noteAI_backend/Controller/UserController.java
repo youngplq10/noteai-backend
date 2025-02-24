@@ -5,10 +5,7 @@ import dev.starzynski.noteAI_backend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -24,5 +21,10 @@ public class UserController {
     @PostMapping("/public/login")
     public ResponseEntity<String> loginUser(@RequestBody User user) {
         return new ResponseEntity<String> (userService.loginUser(user), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/auth/user/{username}")
+    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
+        return new ResponseEntity<User> (userService.getUserByUsername(username), HttpStatus.OK);
     }
 }

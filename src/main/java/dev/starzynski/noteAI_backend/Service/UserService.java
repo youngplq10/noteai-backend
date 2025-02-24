@@ -75,4 +75,12 @@ public class UserService {
             return "Failed";
         }
     }
+
+    public User getUserByUsername(String username) {
+        try {
+            return userRepository.findByUsername(username).orElseThrow();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
