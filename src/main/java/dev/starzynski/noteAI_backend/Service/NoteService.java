@@ -79,4 +79,26 @@ public class NoteService {
             throw new RuntimeException(e);
         }
     }
+
+    public String copyNoteByCode(String link, String username) {
+        try {
+            User user = userRepository.findByUsername(username).orElseThrow();
+
+            Note note = noteRepository.findByLink(link);
+
+            Note newNote = new Note();
+            newNote.setUser(user);
+            newNote.setContent(note.getContent());
+
+            if (note.getSummary() != null) {
+                newNote.setSummary(note.getSummary());
+            }
+
+            noteRepository.insert(newNote);
+
+            return newNote.getLink();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -28,4 +28,9 @@ public class NoteController {
     public ResponseEntity<Note> setSummary(@RequestPart String summary, @RequestPart String link) {
         return new ResponseEntity<Note> (noteService.setSummary(summary, link), HttpStatus.OK);
     }
+
+    @PostMapping("/auth/note/{link}")
+    public ResponseEntity<String> copyNoteByCode(@PathVariable String link, @RequestPart String username) {
+        return new ResponseEntity<String> (noteService.copyNoteByCode(link, username), HttpStatus.OK);
+    }
 }
