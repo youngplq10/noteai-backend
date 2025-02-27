@@ -33,4 +33,9 @@ public class NoteController {
     public ResponseEntity<String> copyNoteByCode(@PathVariable String link, @RequestPart String username) {
         return new ResponseEntity<String> (noteService.copyNoteByCode(link, username), HttpStatus.OK);
     }
+
+    @DeleteMapping("/auth/note/{link}")
+    public ResponseEntity<Boolean> deleteNote(@PathVariable String link) {
+        return new ResponseEntity<Boolean> (noteService.deleteNote(link), HttpStatus.OK);
+    }
 }

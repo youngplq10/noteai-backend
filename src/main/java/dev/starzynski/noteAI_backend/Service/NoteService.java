@@ -67,7 +67,6 @@ public class NoteService {
 
     public Note setSummary(String summary, String link) {
         try {
-            System.out.println(link);
             Note note = noteRepository.findByLink(link);
 
             note.setSummary(summary);
@@ -97,6 +96,18 @@ public class NoteService {
             noteRepository.insert(newNote);
 
             return newNote.getLink();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Boolean deleteNote(String link) {
+        try {
+            Note note = noteRepository.findByLink(link);
+
+            noteRepository.delete(note);
+
+            return true;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
