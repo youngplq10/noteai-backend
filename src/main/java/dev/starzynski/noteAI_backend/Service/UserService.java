@@ -1,5 +1,6 @@
 package dev.starzynski.noteAI_backend.Service;
 
+import dev.starzynski.noteAI_backend.Model.Note;
 import dev.starzynski.noteAI_backend.Model.User;
 import dev.starzynski.noteAI_backend.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.Optional;
 
 @Service
@@ -78,7 +80,11 @@ public class UserService {
 
     public User getUserByUsername(String username) {
         try {
-            return userRepository.findByUsername(username).orElseThrow();
+            User user = userRepository.findByUsername(username).orElseThrow();
+
+            user.getNotes().sort(Comparator.comparing(Note::getCreatedAtDate).reversed());
+
+            return user;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
