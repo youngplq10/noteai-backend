@@ -29,4 +29,9 @@ public class TagController {
     public ResponseEntity<Boolean> removeTagByName(@PathVariable String username, @PathVariable String name) {
         return new ResponseEntity<Boolean> (tagService.removeTagByName(username, name), HttpStatus.OK);
     }
+
+    @GetMapping("/auth/tag/{name}/{username}")
+    public ResponseEntity<Tag> getTagByName(@PathVariable String name, @PathVariable String username) {
+        return new ResponseEntity<Tag> (tagService.getTagByName(name, username), HttpStatus.OK);
+    }
 }

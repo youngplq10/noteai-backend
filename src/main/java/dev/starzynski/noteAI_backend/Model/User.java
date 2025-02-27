@@ -30,7 +30,7 @@ public class User {
     private List<Note> notes;
 
     @DBRef
-    @JsonIgnoreProperties({"user", "notes"})
+    @JsonIgnoreProperties()
     private List<Tag> tags;
 
     private String role;
@@ -40,6 +40,7 @@ public class User {
         this.createdAtDate = new Date();
         this.role = "USER";
         this.notes = new ArrayList<>();
+        this.tags = new ArrayList<>();
     }
 
     public ObjectId getId() { return id; }

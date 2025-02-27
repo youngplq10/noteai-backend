@@ -21,7 +21,7 @@ public class Tag {
     private User user;
 
     @DBRef
-    @JsonIgnoreProperties({"user", "tags"})
+    @JsonIgnoreProperties("user")
     private List<Note> notes;
 
     public Tag() {

@@ -35,6 +35,9 @@ public class TagService {
             tag.setUser(user);
             tag.setName(name);
 
+            user.getTags().add(tag);
+            userRepository.save(user);
+
             tagRepository.insert(tag);
 
             return tag;
@@ -52,6 +55,16 @@ public class TagService {
             tagRepository.delete(tag);
 
             return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Tag getTagByName(String name, String username) {
+        try {
+            User user = userRepository.findByUsername(username).orElseThrow();
+
+            return tagRepository.findByNameAndUser(name, user);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
